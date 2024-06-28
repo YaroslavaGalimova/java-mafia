@@ -16,9 +16,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  example_matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
