@@ -6,7 +6,7 @@
 	<artifactId>mafia</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mafia</name>
-	<description>Mafia game</description>
+	<description>Mafia game libary</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -54,9 +54,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>3.3.1</version>
-				<configuration>
-					<mainClass>com.alexeyzarechnev.mafia.MafiaApplication</mainClass>
-				</configuration>
 
 				<executions>
 					<execution>
