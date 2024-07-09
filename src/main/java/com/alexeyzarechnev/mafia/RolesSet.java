@@ -1,4 +1,4 @@
-package com.alexeyzarechnev.mafia.characters;
+package com.alexeyzarechnev.mafia;
 
 import java.util.Collections;
 import java.util.List;

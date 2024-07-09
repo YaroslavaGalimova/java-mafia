@@ -1,24 +1,23 @@
-package com.alexeyzarechnev.mafia.characters;
+package com.alexeyzarechnev.mafia;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public enum Role {
-    MAFIA("mafia"),
-    CITIZEN("citizen"),
-    POLICEMAN("policeman"),
-    DOCTOR("doctor");
+    MAFIA(Action.KILL),
+    CITIZEN(null),
+    POLICEMAN(Action.INVESTIGATE),
+    DOCTOR(Action.HEAL);
     // TODO: SHERIFF, HARLOT, WEREWOLF, KAMIKAZE, MANIAC
 
-    private String str;
+    private final Action action;
 
-    private Role(String str) {
-        this.str = str;
+    private Role(Action action) {
+        this.action = action;
     }
 
-    @Override
-    public String toString() {
-        return str;
+    public Action getAction() {
+        return action;
     }
 
     private static List<Role> rolesSet = List.of(
