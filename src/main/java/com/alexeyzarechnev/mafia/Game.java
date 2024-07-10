@@ -6,14 +6,20 @@ import java.util.stream.Collectors;
 
 public class Game {
 
-    private Map<Player, Role> alivePlayers; 
+    private final List<Player> allPlayers;
     private final Host host;
+    private Map<Player, Role> alivePlayers; 
 
     public Game(Host host, List<Player> players) {
         this.host = host;
-        RolesSet set = new RolesSet(players.size());
-        this.alivePlayers = players.stream()
-               .collect(Collectors.toMap(p -> p, p -> set.getRole()));   
+        this.allPlayers = players;
+        restart();   
+    }
+
+    public void restart() {
+        RolesSet set = new RolesSet(allPlayers.size());
+        this.alivePlayers = allPlayers.stream()
+               .collect(Collectors.toMap(p -> p, p -> set.getRole()));
     }
 
     public boolean isEnd() {

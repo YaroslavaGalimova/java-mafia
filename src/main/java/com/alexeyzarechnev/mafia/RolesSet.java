@@ -10,7 +10,10 @@ public class RolesSet {
 
     public RolesSet(int count) {
         roles = Role.getRoles(count);
-        Collections.shuffle(roles, new Random(System.currentTimeMillis()));
+        int times = new Random(System.currentTimeMillis()).nextInt(1000000);
+        Random rnd = new Random(System.currentTimeMillis() + times);
+        for (int i = 0; i < times; i++)
+            Collections.shuffle(roles, rnd);
     }
 
     public Role getRole() {

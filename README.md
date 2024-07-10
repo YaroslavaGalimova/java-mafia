@@ -11,6 +11,7 @@
 3. `void playNight()` метод, который проводит ночь в городе.
 4. `void playDay()` метод, который проводит день в городе.
 5. `Map<Player, Role> getAlivePlayers()` метод, который возвращает живых игроков и их роли в [Map](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html) (может быть полезно, например для тестирования)
+6. `void restart()` перезапускает игру, выдавая другие роли тем же участникам, с которыми была создана.
 
 ## RolesSet
 

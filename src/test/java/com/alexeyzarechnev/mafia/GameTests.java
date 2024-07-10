@@ -2,6 +2,7 @@ package com.alexeyzarechnev.mafia;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -182,5 +183,17 @@ public class GameTests {
         assertEquals(5, map.size());
         assertFalse(map.containsKey(TestHost.killed));
         assertFalse(game.isEnd());
+    }
+
+    @Test
+    public void restartTest() {
+        init(5);
+        Map<Player, Role> map1 = game.getAlivePlayers();
+        TestHost.voted = map1.keySet().iterator().next();
+        game.playDay();
+        game.restart();
+        Map<Player, Role> map2 = game.getAlivePlayers();
+        assertEquals(map1.size(), map2.size());
+        assertNotEquals(map1, map2);
     }
 }
