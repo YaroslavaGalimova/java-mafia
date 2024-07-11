@@ -23,8 +23,10 @@ public class Game {
     }
 
     public boolean isEnd() {
-        // TODO: implement logic for game end condition
-        return false;
+        long countOfMafia = alivePlayers.values().stream()
+                            .filter(r -> r.equals(Role.MAFIA))
+                            .count();
+        return countOfMafia * 2 >= alivePlayers.size() || countOfMafia == 0;
     }
 
     private void round(Role role) {
