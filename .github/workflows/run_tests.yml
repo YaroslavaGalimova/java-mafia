@@ -19,7 +19,11 @@ jobs:
   unit-tests:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
+        command: [./mvnw]
+        include: 
+          - os: windows-latest
+            command: ./mvnw.cmd
 
     runs-on: ${{ matrix.os }}
 
@@ -32,4 +36,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn test
+      run: ${{ matrix.command }} test
