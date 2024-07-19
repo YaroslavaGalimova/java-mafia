@@ -20,6 +20,9 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: windows-latest
+            command: ./mvnw.cmd
 
     runs-on: ${{ matrix.os }}
 
@@ -32,4 +35,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: ./mvnw test
+    - if: ${{ matrix.command }}
+      run: ${{ matrix.command }}
+    - run: ./mvnw test
