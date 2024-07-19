@@ -35,6 +35,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-    - if: ${{ matrix.command }}
+      if: ${{ matrix.command }}
       run: ${{ matrix.command }}
-    - run: ./mvnw test
+      run: ./mvnw test
