@@ -2,22 +2,25 @@ package com.alexeyzarechnev.mafia;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Game {
 
     private final List<Player> allPlayers;
+    private final Random random; 
     private final Host host;
     private Map<Player, Role> alivePlayers; 
 
     public Game(Host host, List<Player> players) {
         this.host = host;
         this.allPlayers = players;
+        this.random = new Random(System.currentTimeMillis());
         restart();   
     }
 
     public void restart() {
-        RolesSet set = new RolesSet(allPlayers.size());
+        RolesSet set = new RolesSet(allPlayers.size(), random);
         this.alivePlayers = allPlayers.stream()
                .collect(Collectors.toMap(p -> p, p -> set.getRole()));
     }
