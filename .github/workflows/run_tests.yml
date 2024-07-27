@@ -23,7 +23,7 @@ jobs:
         command: [./mvnw]
         include: 
           - os: windows-latest
-            command: ./mvnw.cmd
+            command: mvn
 
     runs-on: ${{ matrix.os }}
 
