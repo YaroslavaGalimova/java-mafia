@@ -8,9 +8,9 @@ public class RolesSet {
 
     private List<Role> roles;
 
-    public RolesSet(int count) {
+    public RolesSet(int count, Random rand) {
         roles = Role.getRoles(count);
-        int times = new Random(System.currentTimeMillis()).nextInt(1000000);
+        int times = rand.nextInt(1000000);
         Random rnd = new Random(System.currentTimeMillis() + times);
         for (int i = 0; i < times; i++)
             Collections.shuffle(roles, rnd);

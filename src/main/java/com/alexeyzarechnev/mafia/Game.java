@@ -2,6 +2,7 @@ package com.alexeyzarechnev.mafia;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.alexeyzarechnev.mafia.exceptions.CharacterSelectionException;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 public class Game {
 
     private final List<Player> allPlayers;
+    private final Random random; 
     private final Host host;
     private Map<Player, Role> alivePlayers; 
     private Set<Player> killedPlayers;
@@ -20,11 +22,13 @@ public class Game {
         this.host = host;
         this.allPlayers = players;
         this.killedPlayers = new HashSet<Player>();
+        this.random = new Random(System.currentTimeMillis());
+
         restart();   
     }
 
     public void restart() {
-        RolesSet set = new RolesSet(allPlayers.size());
+        RolesSet set = new RolesSet(allPlayers.size(), random);
         this.alivePlayers = allPlayers.stream()
                .collect(Collectors.toMap(p -> p, p -> set.getRole()));
     }
