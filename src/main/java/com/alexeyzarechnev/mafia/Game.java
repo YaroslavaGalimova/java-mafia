@@ -85,7 +85,7 @@ public class Game {
             doAction(Action.KICK, host.getPlayerForAction(Action.KICK));
         } catch (CharacterSelectionException e) {
             host.getMessage("This player isn't alive. Please, try again");
-            playDay();
+            //playDay();
         }
         removePlayers();
         isDay = false;
