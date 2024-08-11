@@ -1,5 +1,6 @@
 package com.alexeyzarechnev.mafia;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -108,7 +109,7 @@ public class GameTests {
         init(5);
         TestHost.healed = TestHost.checked = TestHost.killed = findPlayer(Role.MAFIA);
 
-        game.playNight();
+        assertDoesNotThrow(() -> game.playNight());
 
         Map<Player, Role> map = game.getAlivePlayers();
         map.forEach((p, r) -> {
@@ -132,7 +133,7 @@ public class GameTests {
         TestHost.healed = TestHost.checked = null;
         TestHost.killed = findPlayer(Role.MAFIA);
 
-        game.playNight();
+        assertDoesNotThrow(() -> game.playNight());
 
         Map<Player, Role> map = game.getAlivePlayers();
         map.forEach((p, r) -> {
@@ -148,8 +149,18 @@ public class GameTests {
     }
 
     @Test
+    public void startFromDayTest() {
+        init(6);
+        assertThrows(InvalidTimeException.class, () -> game.playDay());
+    }
+
+    @Test
     public void doubleDayTest() {
         init(6);
+        TestHost.healed = TestHost.checked = TestHost.killed = null;
+
+        assertDoesNotThrow(() -> game.playNight());
+        assertDoesNotThrow(() -> game.playDay());
         assertThrows(InvalidTimeException.class, () -> game.playDay());
     }
 
@@ -158,7 +169,7 @@ public class GameTests {
         init(6);
         TestHost.healed = TestHost.checked = TestHost.killed = null;
 
-        game.playNight();
+        assertDoesNotThrow(() -> game.playNight());
         assertThrows(InvalidTimeException.class, () -> game.playNight());
 
     }
@@ -169,8 +180,8 @@ public class GameTests {
         TestHost.healed = TestHost.checked = TestHost.killed = null;
         TestHost.voted = findPlayer(Role.DOCTOR);
 
-        game.playNight();
-        game.playDay();
+        assertDoesNotThrow(() -> game.playNight());
+        assertDoesNotThrow(() -> game.playDay());
 
         Map<Player, Role> map = game.getAlivePlayers();
         assertEquals(5, map.size());
@@ -184,8 +195,8 @@ public class GameTests {
         TestHost.healed = TestHost.checked = TestHost.killed = null;
         TestHost.voted = findPlayer(Role.MAFIA);
         
-        game.playNight();
-        game.playDay();
+        assertDoesNotThrow(() -> game.playNight());
+        assertDoesNotThrow(() -> game.playDay());
 
         assertTrue(game.isEnd());
     }
@@ -196,10 +207,10 @@ public class GameTests {
         TestHost.voted = TestHost.healed = TestHost.checked = null;
         TestHost.killed = findPlayer(Role.DOCTOR);
 
-        game.playNight();
-        game.playDay();
+        assertDoesNotThrow(() -> game.playNight());
+        assertDoesNotThrow(() -> game.playDay());
         TestHost.killed = null;
-        game.playNight();
+        assertDoesNotThrow(() -> game.playNight());
 
         Map<Player, Role> map = game.getAlivePlayers();
         map.forEach((p, r) -> {
