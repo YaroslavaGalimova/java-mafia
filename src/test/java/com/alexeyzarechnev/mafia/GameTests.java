@@ -136,8 +136,18 @@ public class GameTests {
     }
 
     @Test
+    public void startFromDayTest() {
+        init(6);
+        assertThrows(InvalidTimeException.class, () -> game.playDay());
+    }
+
+    @Test
     public void doubleDayTest() {
         init(6);
+        TestHost.healed = TestHost.checked = TestHost.killed = null;
+
+        game.playNight();
+        game.playDay();
         assertThrows(InvalidTimeException.class, () -> game.playDay());
     }
 
