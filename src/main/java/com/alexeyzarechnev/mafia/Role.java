@@ -26,9 +26,9 @@ public enum Role {
         CITIZEN,
         MAFIA,
         POLICEMAN,
+        CITIZEN,
         MAFIA,
         DOCTOR,
-        CITIZEN,
         MAFIA,
         CITIZEN,
         CITIZEN
@@ -37,5 +37,9 @@ public enum Role {
     
     public static List<Role> getRoles(int count) {
         return new ArrayList<Role>(rolesSet.subList(0, count));
+    }
+
+    boolean isBlack() {
+        return this.action.equals(Action.KILL);
     }
 }

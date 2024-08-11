@@ -35,8 +35,6 @@ public class GameTests {
 
         @Override
         public void getMessage(String message) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getMessage'");
         }
     }
 
@@ -61,8 +59,6 @@ public class GameTests {
 
         @Override
         public void getMessage(String message) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getMessage'");
         }
     }
 
