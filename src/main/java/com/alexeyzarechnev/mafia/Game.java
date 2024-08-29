@@ -42,18 +42,10 @@ public class Game {
         return countOfMafia * 2 >= alivePlayers.size() || countOfMafia == 0;
     }
 
-    private void round(Role role) {
+    private void round(Role role) throws CharacterSelectionException{
         Action action = role.getAction();
         awake(role);
-        try {
-            doAction(action, host.getPlayerForAction(action));
-        } catch (CharacterSelectionException e) {
-            for (Map.Entry<Player, Role> entry : alivePlayers.entrySet()) {
-                if (entry.getValue().equals(role)) {
-                    entry.getKey().getMessage("You can't choose this player. Please, try again");
-                }
-            }
-        }
+        doAction(action, host.getPlayerForAction(action));
         sleep(role);
     }
 
@@ -64,7 +56,7 @@ public class Game {
         killedPlayers.clear();
     }
 
-    public void playNight() throws InvalidTimeException {
+    public void playNight() throws InvalidTimeException, CharacterSelectionException {
         if (isDay) {
             throw new InvalidTimeException();
         }
@@ -77,21 +69,19 @@ public class Game {
         awakeAll();
     }
 
-    public void playDay() throws InvalidTimeException {
+    public void playDay() throws InvalidTimeException, CharacterSelectionException {
         if (!isDay) {
             throw new InvalidTimeException();
         }
-        try {
-            doAction(Action.KICK, host.getPlayerForAction(Action.KICK));
-        } catch (CharacterSelectionException e) {
-            host.getMessage("This player isn't alive. Please, try again");
-            //playDay();
-        }
+        doAction(Action.KICK, host.getPlayerForAction(Action.KICK));
         removePlayers();
         isDay = false;
     }
 
     private void doAction(Action action, Player player) throws CharacterSelectionException {
+        if (player == null) {
+            return;
+        }
         if (!alivePlayers.containsKey(player)) {
             throw new CharacterSelectionException();
         }
@@ -99,7 +89,7 @@ public class Game {
             case KILL:
                 killedPlayers.add(player);
             case INVESTIGATE:
-                String message = alivePlayers.get(player).isBlack() ? "This player is black" : "This player isn't black";
+                String message = Role.isBlack(alivePlayers.get(player)) ? "This player is black" : "This player isn't black";
                 for (Map.Entry<Player, Role> entry : alivePlayers.entrySet()) {
                     if (entry.getValue().equals(Role.POLICEMAN)) {
                         entry.getKey().getMessage(message);

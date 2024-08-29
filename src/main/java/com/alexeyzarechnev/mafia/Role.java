@@ -39,7 +39,7 @@ public enum Role {
         return new ArrayList<Role>(rolesSet.subList(0, count));
     }
 
-    boolean isBlack() {
-        return this.action.equals(Action.KILL);
+    public static boolean isBlack(Role role) {
+        return role.action.equals(Action.KILL);
     }
 }
