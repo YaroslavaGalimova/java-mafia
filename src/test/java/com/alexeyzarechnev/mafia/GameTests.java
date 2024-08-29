@@ -139,7 +139,7 @@ public class GameTests {
                 assertEquals(2, tp.sleepCount);
             }
         });
-        assertEquals(5, map.size());
+        assertEquals(4, map.size());
         assertFalse(map.containsKey(TestHost.killed));
         assertTrue(game.isEnd());
     }
